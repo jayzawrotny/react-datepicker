@@ -50,6 +50,9 @@
     "tether": "^0.6",
     "react-onclickoutside": "0.2.2"
   },
+  "bin": {
+    "grunt": "grunt"
+  },
   "scripts": {
     "test": "grunt travis --verbose"
   },

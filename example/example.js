@@ -33677,7 +33677,7 @@ var ExampleApp =
 	      onKeyDown: this.handleKeyDown,
 	      onFocus: this.props.onFocus,
 	      onChange: this.handleChange,
-	      className: "datepicker__input",
+	      className: "form__input form__input--is_text",
 	      placeholder: this.props.placeholderText });
 	  }
 	});
