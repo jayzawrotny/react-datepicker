@@ -21,10 +21,20 @@ var DatePicker = React.createClass({
     };
   },
 
-  handleFocus: function() {
+  handleFocus: function(e) {
     this.setState({
       focus: true
     });
+
+    if (typeof this.props.onFocus === 'function') {
+      this.props.onFocus(e);
+    }
+  },
+
+  handleBlur: function(e) {
+    if (typeof this.props.onBlur === 'function') {
+      this.props.onBlur(e);
+    }
   },
 
   hideCalendar: function() {
@@ -66,7 +76,7 @@ var DatePicker = React.createClass({
             locale={this.props.locale}
             moment={this.props.moment}
             dateFormat={this.props.dateFormatCallendar}
-            selected={this.props.selected}
+            selected={this.props.value}
             onSelect={this.handleSelect}
             hideCalendar={this.hideCalendar}
             minDate={this.props.minDate}
@@ -82,17 +92,18 @@ var DatePicker = React.createClass({
     return (
       <div>
         <DateInput
+          {...this.props}
           name={this.props.name}
-          date={this.props.selected}
+          date={this.props.value}
           dateFormat={this.props.dateFormat}
           focus={this.state.focus}
           onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
           handleClick={this.onInputClick}
           handleEnter={this.hideCalendar}
           setSelected={this.setSelected}
           clearSelected={this.clearSelected}
-          hideCalendar={this.hideCalendar}
-          placeholderText={this.props.placeholderText} />
+          hideCalendar={this.hideCalendar} />
         {this.calendar()}
       </div>
     );

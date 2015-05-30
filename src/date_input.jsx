@@ -69,16 +69,17 @@ var DateInput = React.createClass({
 
   render: function() {
     return <input
-      ref="input"
       type="text"
+      className="form__input form__input--is_dropdown"
+      {...this.props}
+      ref="input"
       name={this.props.name}
       value={this.state.value}
       onClick={this.handleClick}
       onKeyDown={this.handleKeyDown}
       onFocus={this.props.onFocus}
-      onChange={this.handleChange}
-      className="form__input form__input--is_text"
-      placeholder={this.props.placeholderText} />;
+      onBlur={this.props.onBlur}
+      onChange={this.handleChange} />;
   }
 });
 

@@ -20373,6 +20373,8 @@ var ExampleApp =
 
 	"use strict";
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var React = __webpack_require__(1);
 	var Popover = __webpack_require__(248);
 	var DateUtil = __webpack_require__(246);
@@ -20398,10 +20400,20 @@ var ExampleApp =
 	    };
 	  },
 
-	  handleFocus: function handleFocus() {
+	  handleFocus: function handleFocus(e) {
 	    this.setState({
 	      focus: true
 	    });
+
+	    if (typeof this.props.onFocus === "function") {
+	      this.props.onFocus(e);
+	    }
+	  },
+
+	  handleBlur: function handleBlur(e) {
+	    if (typeof this.props.onBlur === "function") {
+	      this.props.onBlur(e);
+	    }
 	  },
 
 	  hideCalendar: function hideCalendar() {
@@ -20444,7 +20456,7 @@ var ExampleApp =
 	          locale: this.props.locale,
 	          moment: this.props.moment,
 	          dateFormat: this.props.dateFormatCallendar,
-	          selected: this.props.selected,
+	          selected: this.props.value,
 	          onSelect: this.handleSelect,
 	          hideCalendar: this.hideCalendar,
 	          minDate: this.props.minDate,
@@ -20459,18 +20471,18 @@ var ExampleApp =
 	    return React.createElement(
 	      "div",
 	      null,
-	      React.createElement(DateInput, {
+	      React.createElement(DateInput, _extends({}, this.props, {
 	        name: this.props.name,
-	        date: this.props.selected,
+	        date: this.props.value,
 	        dateFormat: this.props.dateFormat,
 	        focus: this.state.focus,
 	        onFocus: this.handleFocus,
+	        onBlur: this.handleBlur,
 	        handleClick: this.onInputClick,
 	        handleEnter: this.hideCalendar,
 	        setSelected: this.setSelected,
 	        clearSelected: this.clearSelected,
-	        hideCalendar: this.hideCalendar,
-	        placeholderText: this.props.placeholderText }),
+	        hideCalendar: this.hideCalendar })),
 	      this.calendar()
 	    );
 	  }
@@ -33597,6 +33609,8 @@ var ExampleApp =
 
 	"use strict";
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var React = __webpack_require__(1);
 	var DateUtil = __webpack_require__(246);
 	var moment = __webpack_require__(160);
@@ -33668,17 +33682,18 @@ var ExampleApp =
 	  },
 
 	  render: function render() {
-	    return React.createElement("input", {
-	      ref: "input",
+	    return React.createElement("input", _extends({
 	      type: "text",
+	      className: "form__input form__input--is_dropdown"
+	    }, this.props, {
+	      ref: "input",
 	      name: this.props.name,
 	      value: this.state.value,
 	      onClick: this.handleClick,
 	      onKeyDown: this.handleKeyDown,
 	      onFocus: this.props.onFocus,
-	      onChange: this.handleChange,
-	      className: "form__input form__input--is_text",
-	      placeholder: this.props.placeholderText });
+	      onBlur: this.props.onBlur,
+	      onChange: this.handleChange }));
 	  }
 	});
 
